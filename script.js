@@ -7,9 +7,12 @@ var currentColor = 'blue';
       var colorButtons = document.getElementsByClassName('color-button');
       for (var i = 0; i < colorButtons.length; i++) {
         colorButtons[i].classList.remove('active');
+        colorButtons[i].style.border = 'none'; // Reset border for all buttons
       }
       event.target.classList.add('active');
+      event.target.style.border = '5px solid black'; // Add border to the active button
     }
+    
 
     var minZoomLevel = 12;
 
