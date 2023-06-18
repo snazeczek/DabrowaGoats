@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rysowanie różnych polygonów</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.3.0/turf.min.js"></script>
+  <style>
+    .map {
+      height: 1000px;
+      width: 400px;
+      float: left;
+      margin-right: 20px;
+    }
+    .colors {
+      clear: both;
+      margin-top: 10px;
+    }
+    .color-button {
+      width: 30px;
+      height: 30px;
+      margin-right: 5px;
+      cursor: pointer;
+      border: 2px solid #ddd;
+    }
+    .color-button.active {
+      border-width: 4px;
+    }
+    .area-summary {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rysowanie różnych polygonów</h1>
+  <div class="map" id="map"></div>
+  <div class="colors">
+    <div class="color-button" onclick="setColor('red')" style="background-color: red;"></div>
+    <div class="color-button" onclick="setColor('green')" style="background-color: green;"></div>
+    <div class="color-button" onclick="setColor('blue')" style="background-color: blue;"></div>
+    <div class="color-button" onclick="setColor('orange')" style="background-color: orange;"></div>
+    <div class="color-button" onclick="setColor('purple')" style="background-color: purple;"></div>
+  </div>
+  <div class="area-summary">
+    <h3>Podsumowanie powierzchni:</h3>
+    <ul id="summary-list"></ul>
+  </div>
+
+  <script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(map);
+
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    var drawControl = new L.Control.Draw({
+      edit: {
+        featureGroup: drawnItems,
+        poly: {
+          allowIntersection: false
+        }
+      },
+      draw: {
+        polygon: {
+          allowIntersection: false,
+          showArea: true,
+          shapeOptions: {
+            color: 'blue' // Domyślny kolor dla wszystkich polygonów
+          }
+        },
+        polyline: false,
+        rectangle: false,
+        circle: false,
+        marker: false
+      }
+    });
+    map.addControl(drawControl);
+
+    var currentColor = 'blue';
+    var areaSummary = {};
+
+    function setColor(color) {
+      currentColor = color;
+      var colorButtons = document.getElementsByClassName('color-button');
+      for (var i = 0; i < colorButtons.length; i++) {
+        colorButtons[i].classList.remove('active');
+      }
+      event.target.classList.add('active');
+    }
+
+    function calculateArea(layer) {
+      var feature = layer.toGeoJSON();
+      var area = turf.area(feature);
+      if (!areaSummary[currentColor]) {
+        areaSummary[currentColor] = 0;
+      }
+      areaSummary[currentColor] += area;
+      updateSummaryList();
+    }
+
+    function updateSummaryList() {
+      var summaryList = document.getElementById('summary-list');
+      summaryList.innerHTML = '';
+      for (var color in areaSummary) {
+        var area = areaSummary[color].toFixed(2);
+        var listItem = document.createElement('li');
+        listItem.innerText = color + ': ' + area + ' m²';
+        summaryList.appendChild(listItem);
+      }
+    }
+
+    map.on(L.Draw.Event.CREATED, function (event) {
+      var layer = event.layer;
+      layer.setStyle({ color: currentColor }); // Ustawienie wybranego koloru dla figury
+      drawnItems.addLayer(layer);
+      calculateArea(layer);
+    });
+  </script>
+</body>
+</html>

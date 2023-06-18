@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <title>Kalkulator Baf</title>
+  <link rel="icon" type="image/x-icon" href="./dg.png">
+</head>
+<body>
+  <h1 class="mainText">Kalkulator Baf</h1>
+  <div id="map"></div>
+  <button class="button" onclick="moveFigureToMap2()">Wybierz zanaczoną mape</button>
+  <div class="map-container">
+    <div class="map2" id="map2"></div>
+    <div class="colors">
+      <div class="tooltip-container">
+        <span class="tooltip-text">Powierzchnie szczelne</span>
+        <div class="tooltip">Powierzchnie szczelne (nieprzepuszczalne), np:	asfalt, beton, kamień</div>
+      </div>
+      <div class="color-button" onclick="setColor('red')" style="background-color: red;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Powierzchnie półprzepuszczalne</span>
+        <div class="tooltip">Powierzchnie półprzepuszczalne, np: żwir, grys, płyta ażurowa betonowa, kruszywa łączone żywicą, inne materiały sypkie </div>
+      </div>
+      <div class="color-button" onclick="setColor('green')" style="background-color: green;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Powierzchnie perforowane</span>
+        <div class="tooltip">Powierzchnie perforowane, np: nawierzchnia mineralno-żywiczna, kostka brukowa z przestrzeniami dylatacyjnymi</div>
+      </div>
+      <div class="color-button" onclick="setColor('blue')" style="background-color: blue;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Powierzchnie przepuszczalne</span>
+        <div class="tooltip">Powierzchnie przepuszczalne, np: geokrata (geosiatka komórkowa)</div>
+      </div>
+      <div class="color-button" onclick="setColor('orange')" style="background-color: orange;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Zabudowa</span>
+        <div class="tooltip">Zabudowa</div>
+      </div>
+      <div class="color-button" onclick="setColor('purple')" style="background-color: purple;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Drzewo</span>
+        <div class="tooltip">Drzewo</div>
+      </div>
+      <div class="color-button" onclick="setColor('pink')" style="background-color: pink;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Krzew,Dachy zielone</span>
+        <div class="tooltip">Krzew,Dachy zielone, Łąka kwietna, Ogród deszczowy </div>
+      </div>
+      <div class="color-button" onclick="setColor('brown')" style="background-color: brown;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Trawa (murawa)</span>
+        <div class="tooltip">Trawa, rosliny pnace</div>
+      </div>
+      <div class="color-button" onclick="setColor('magenta')" style="background-color: magenta;"></div>
+      <div class="tooltip-container">
+        <span class="tooltip-text">Ściany zielone</span>
+        <div class="tooltip">Ściany zielone</div>
+      </div>
+      <div class="color-button" onclick="setColor('lemonchiffon')" style="background-color: lemonchiffon;"></div>
+    </div>
+  </div>
+  <div class="area-summary">
+    <p class="titlemini">Wybierz typ działki</p>
+    <select class="mySelect">
+      <option value="0.6">Mieszkaniowa</option>
+      <option value="0.61">Przestrzeń publiczna</option>
+      <option value="0.3">Usługowa</option>
+      <option value="0.31">Produkcyjna</option>
+      <option value="0.32">Usługowo produkcyjna</option>
+      <option value="0.5">Usługowo mieszkaniowa</option>
+      <option value="0.33">Składy i magazyny</option>
+    </select>
+    <h3>Podsumowanie powierzchni:</h3>
+    <ul id="summary-list">
+   
+    </ul>
+    <h3 class="calculated-baf"></h3>
+    <p class="alert"></p>
+    <button class="back-button" onclick="goBack()">Powrót</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.3.0/turf.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

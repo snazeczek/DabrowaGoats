@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto:wght@400&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    font-family: Poppins;
+}
+
+#map {
+    display: flex;
+    height: 75vh;
+    width: 70vw;
+}
+
+.mainText{
+    font-size: 2.1em;
+    text-align: center;
+}
+
+.button {
+    margin-top: 1.5%;
+    height: 3em;
+    font-size: 0.9em;
+    border-radius: 8px;
+    padding: 0 1%;
+    border: none;
+    background-color: #eee;
+}
+
+.button:hover {
+    background-color: #111;
+    color: white;
+    cursor: pointer;
+}
+
+.map-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-top: 1.5%;
+    visibility: hidden;
+    top: 8%;
+    left: 2.5%;
+}
+
+#map2 {
+    display: flex;
+    height: 85vh;
+    width: 50vw;
+}
+
+.colors {
+  margin-top: 10px;
+}
+
+.color-button {
+  width: 1.5vw;
+  height: 1.5vw;
+  margin-right: 1.5%;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.color-button.active {
+  border-width: 4px;
+}
+
+.area-summary {
+  visibility: hidden;
+  position: absolute;
+  z-index: 9999;
+  top: 8%;
+  right: 2.5%;
+  max-width: 20vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.colors{
+  font-size: 1em;
+}
+
+.alert {
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+.mySelect {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.mySelect:after {
+  content: '\25BC';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #777;
+  pointer-events: none;
+}
+
+.mySelect select {
+  display: none;
+}
+
+.mySelect select option {
+  font-weight: normal;
+}
+
+.mySelect.selected {
+  background-color: #ddd;
+}
+
+.titlemini {
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+.back-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  align-self: center;
+  justify-self: center;
+  transition-duration: 0.4s;
+}
+
+/* Add hover effect to the button */
+.back-button:hover {
+  background-color: #45a049;
+}
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  cursor: pointer;
+}
+
+.tooltip {
+  visibility: hidden;
+  max-width: 300px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: normal;
+  overflow-wrap: break-word;
+  transform-origin: bottom center;
+}
+
+.tooltip:before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #000 transparent;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
